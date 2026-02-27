@@ -2,26 +2,31 @@
 <html>
 <head>
     <title>The Countdown</title>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
     <style>
         body { 
             background: #000; 
             color: #fff; 
             display: flex; 
-            flex-direction: column; /* Stack clock and message */
+            flex-direction: column; 
             justify-content: center; 
             align-items: center; 
             height: 100vh; 
-            font-family: 'Courier New', Courier, monospace; 
+            font-family: 'Arial Black', sans-serif; 
             margin: 0;
-            text-align: center;
+            overflow: hidden;
+            transition: background-color 0.2s;
         }
-        #timer { font-size: clamp(2rem, 10vw, 6rem); font-weight: bold; }
-        #message { 
-            font-size: 2rem; 
-            margin-top: 20px; 
-            color: #ff0000; /* Red for a bit of 'ominous' joke energy */
-            height: 3rem; /* Prevents layout jumping when text appears */
+        #timer { font-size: clamp(2rem, 15vw, 8rem); transition: all 0.5s; }
+        #message { font-size: 4rem; text-transform: uppercase; margin-top: 20px; }
+
+        /* Red Pulse Animation */
+        @keyframes pulse {
+            0% { background-color: #000; }
+            50% { background-color: #600; }
+            100% { background-color: #000; }
         }
+        .warning-mode { animation: pulse 1.5s infinite; }
     </style>
 </head>
 <body>
@@ -29,43 +34,73 @@
     <div id="message"></div>
 
     <script>
-        function updateTimer() {
+        let confettiInterval;
+
+        function update() {
             const now = new Date();
             let target = new Date();
             
-            // Set target to Thursday (4) at 19:30:00
+            // Logic for the upcoming/most recent Thursday at 7:30 PM
             target.setDate(now.getDate() + (4 - now.getDay() + 7) % 7);
             target.setHours(19, 30, 0, 0);
 
-            // If it's already past 7:30 PM today, move to next week
-            if (now >= target) {
+            // If we are currently in the 2-hour window AFTER 7:30 PM Thursday
+            const twoHoursAfter = new Date(target.getTime() + (2 * 60 * 60 * 1000));
+            
+            // Adjustment: If it's Thursday and we're past 9:30 PM, target is next week
+            if (now > twoHoursAfter) {
                 target.setDate(target.getDate() + 7);
             }
 
             const diff = target - now;
             const secondsTotal = Math.floor(diff / 1000);
-            
-            // Time calculations
+            const body = document.body;
+            const timerDiv = document.getElementById('timer');
+            const msgDiv = document.getElementById('message');
+
+            // --- STATE 1: PARTY MODE (The 2 hours of Drinky Time) ---
+            // If now is between Thursday 7:30 PM and 9:30 PM
+            if (now >= target && now <= twoHoursAfter) {
+                timerDiv.style.display = "none";
+                msgDiv.innerHTML = "DRINKY TIME";
+                body.classList.remove('warning-mode');
+                
+                // Random Background Color
+                body.style.backgroundColor = `hsl(${Math.random() * 360}, 70%, 50%)`;
+                
+                // Fire Confetti
+                if (!confettiInterval) {
+                    confettiInterval = setInterval(() => {
+                        confetti({ particleCount: 100, spread: 70, origin: { y: 0.6 } });
+                    }, 2000);
+                }
+                return; // Stop running the rest of the timer logic
+            }
+
+            // --- STATE 2: COUNTDOWN MODE ---
+            confettiInterval = clearInterval(confettiInterval);
+            timerDiv.style.display = "block";
+            msgDiv.innerHTML = "";
+            body.style.backgroundColor = "#000";
+
             const days = Math.floor(diff / (1000 * 60 * 60 * 24));
             const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
             const mins = Math.floor((diff / 1000 / 60) % 60);
             const secs = Math.floor((diff / 1000) % 60);
 
-            // Update the Clock
-            document.getElementById('timer').innerHTML = 
-                `${days}d ${hours}h ${mins}m ${secs}s`;
+            timerDiv.innerHTML = `${days}d ${hours}h ${mins}m ${secs}s`;
 
-            // Logic for the "Soon....." message (2 hours = 7200 seconds)
-            const msgDiv = document.getElementById('message');
-            if (secondsTotal <= 7200 && secondsTotal > 0) {
-                msgDiv.innerHTML = "Soon.....";
-            } else {
-                msgDiv.innerHTML = "";
+            // Red Pulse Logic (10 mins = 600 seconds)
+            if (secondsTotal <= 600 && secondsTotal > 0) {
+                body.classList.add('warning-mode');
+                msgDiv.innerHTML = "SOON.....";
+            } else if (secondsTotal <= 7200 && secondsTotal > 600) {
+                msgDiv.innerHTML = "SOON.....";
             }
         }
 
-        setInterval(updateTimer, 1000);
-        updateTimer();
+        setInterval(update, 1000);
+        update();
     </script>
 </body>
 </html>
