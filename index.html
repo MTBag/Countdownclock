@@ -16,11 +16,20 @@
             margin: 0;
             overflow: hidden;
             transition: background-color 0.2s;
+            text-align: center;
         }
         #timer { font-size: clamp(2rem, 15vw, 8rem); transition: all 0.5s; }
-        #message { font-size: 4rem; text-transform: uppercase; margin-top: 20px; }
+        #message { font-size: 4rem; text-transform: uppercase; margin-bottom: 10px; }
+        
+        /* Keno Numbers Styling */
+        #keno { 
+            font-family: Arial, sans-serif; 
+            font-weight: bold; 
+            font-size: 18pt; 
+            margin-top: 20px;
+            min-height: 1.5em;
+        }
 
-        /* Red Pulse Animation */
         @keyframes pulse {
             0% { background-color: #000; }
             50% { background-color: #600; }
@@ -32,22 +41,41 @@
 <body>
     <div id="timer">Loading...</div>
     <div id="message"></div>
+    <div id="keno"></div>
 
     <script>
         let confettiInterval;
+
+        // Function to generate the same 7 numbers for a specific date
+        function getKenoNumbers(seedDate) {
+            const dateString = seedDate.getFullYear() + "-" + seedDate.getMonth() + "-" + seedDate.getDate();
+            let seed = 0;
+            for (let i = 0; i < dateString.length; i++) {
+                seed += dateString.charCodeAt(i);
+            }
+            
+            const numbers = [];
+            let currentSeed = seed;
+            
+            while (numbers.length < 7) {
+                currentSeed = (currentSeed * 9301 + 49297) % 233280;
+                const num = Math.floor((currentSeed / 233280) * 80) + 1;
+                if (!numbers.includes(num)) {
+                    numbers.push(num);
+                }
+            }
+            return numbers.sort((a, b) => a - b).join(", ");
+        }
 
         function update() {
             const now = new Date();
             let target = new Date();
             
-            // Logic for the upcoming/most recent Thursday at 7:30 PM
             target.setDate(now.getDate() + (4 - now.getDay() + 7) % 7);
             target.setHours(19, 30, 0, 0);
 
-            // If we are currently in the 2-hour window AFTER 7:30 PM Thursday
             const twoHoursAfter = new Date(target.getTime() + (2 * 60 * 60 * 1000));
             
-            // Adjustment: If it's Thursday and we're past 9:30 PM, target is next week
             if (now > twoHoursAfter) {
                 target.setDate(target.getDate() + 7);
             }
@@ -57,30 +85,33 @@
             const body = document.body;
             const timerDiv = document.getElementById('timer');
             const msgDiv = document.getElementById('message');
+            const kenoDiv = document.getElementById('keno');
 
-            // --- STATE 1: PARTY MODE (The 2 hours of Drinky Time) ---
-            // If now is between Thursday 7:30 PM and 9:30 PM
+            // --- PARTY MODE ---
             if (now >= target && now <= twoHoursAfter) {
                 timerDiv.style.display = "none";
                 msgDiv.innerHTML = "DRINKY TIME";
-                body.classList.remove('warning-mode');
+                kenoDiv.innerHTML = "Tonight's Numbers: " + getKenoNumbers(target);
                 
-                // Random Background Color
-                body.style.backgroundColor = `hsl(${Math.random() * 360}, 70%, 50%)`;
+                // Random Background & Random Text Color for Keno
+                const randomHue = Math.random() * 360;
+                body.style.backgroundColor = `hsl(${randomHue}, 70%, 20%)`;
+                kenoDiv.style.color = `hsl(${(randomHue + 180) % 360}, 100%, 70%)`;
                 
-                // Fire Confetti
                 if (!confettiInterval) {
                     confettiInterval = setInterval(() => {
                         confetti({ particleCount: 100, spread: 70, origin: { y: 0.6 } });
                     }, 2000);
                 }
-                return; // Stop running the rest of the timer logic
+                return;
             }
 
-            // --- STATE 2: COUNTDOWN MODE ---
-            confettiInterval = clearInterval(confettiInterval);
+            // --- COUNTDOWN MODE ---
+            clearInterval(confettiInterval);
+            confettiInterval = null;
             timerDiv.style.display = "block";
             msgDiv.innerHTML = "";
+            kenoDiv.innerHTML = "";
             body.style.backgroundColor = "#000";
 
             const days = Math.floor(diff / (1000 * 60 * 60 * 24));
@@ -90,7 +121,6 @@
 
             timerDiv.innerHTML = `${days}d ${hours}h ${mins}m ${secs}s`;
 
-            // Red Pulse Logic (10 mins = 600 seconds)
             if (secondsTotal <= 600 && secondsTotal > 0) {
                 body.classList.add('warning-mode');
                 msgDiv.innerHTML = "SOON.....";
