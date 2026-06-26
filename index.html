@@ -18,7 +18,6 @@
             transition: background-color 0.2s;
             text-align: center;
         }
-        /* New Styles */
         #logo { position: absolute; top: 20px; left: 20px; z-index: 100; }
         #logo img { width: 120px; border-radius: 50%; border: 2px solid #555; }
         #counter { margin-top: auto; padding-bottom: 20px; font-size: 0.8rem; color: #666; }
@@ -102,7 +101,7 @@
     </style>
 </head>
 <body>
-    <a href="https://Tallpinelounge.com" id="logo"><img src="1000006969.png" alt="Tall Pine Logo"></a>
+    <a href="https://Tallpinelounge.com" id="logo"><img src="chip.png" alt="Tall Pine Logo"></a>
     <button id="audioToggle">🔇</button>
     <audio id="bgMusic" src="party-theme.mp3" loop></audio>
 
@@ -113,7 +112,6 @@
     <div id="counter">Hits: <span id="hitCount">0</span></div>
 
     <script>
-        // Simple hit counter using localStorage
         let hits = localStorage.getItem('page_hits') || 0;
         hits++;
         localStorage.setItem('page_hits', hits);
@@ -152,7 +150,7 @@
             }
             let currentSeed = seed;
             const numbers = [];
-            while (numbers.length < 6) { // Changed from 7 to 6
+            while (numbers.length < 6) { 
                 currentSeed = (currentSeed * 9301 + 49297) % 233280;
                 const num = Math.floor((currentSeed / 233280) * 80) + 1;
                 if (!numbers.includes(num)) numbers.push(num);
