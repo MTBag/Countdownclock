@@ -11,26 +11,13 @@
             flex-direction: column; 
             justify-content: center; 
             align-items: center; 
-            min-height: 100vh; 
+            height: 100vh; /* Changed back to fixed height to ensure centering */
             font-family: 'Arial Black', sans-serif; 
             margin: 0;
-            overflow-x: hidden;
+            overflow: hidden;
             transition: background-color 0.2s;
             text-align: center;
         }
-        
-        /* Updated Styles */
-        #footer-container { 
-            margin-top: auto; 
-            padding: 20px; 
-            display: flex; 
-            flex-direction: column; 
-            align-items: center; 
-            gap: 10px;
-        }
-        #shane-text { font-size: 3rem; font-weight: 900; margin-bottom: 5px; }
-        #logo img { width: 120px; border-radius: 50%; border: 2px solid #555; }
-        #counter { font-size: 0.8rem; color: #666; }
 
         #timer { font-size: clamp(2rem, 15vw, 8rem); transition: all 0.5s; }
         #message { font-size: 4rem; text-transform: uppercase; margin-bottom: 20px; }
@@ -49,6 +36,22 @@
             font-size: 14px;
             z-index: 100;
         }
+
+        /* Fixed Footer Styles to prevent breaking layout */
+        #footer {
+            position: fixed;
+            bottom: 20px;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 5px;
+            pointer-events: none; /* Allows clicking through if needed */
+        }
+        #footer > * { pointer-events: auto; }
+        #shane-text { font-size: 2rem; font-weight: 900; margin-bottom: 5px; }
+        #logo img { width: 100px; border-radius: 50%; border: 2px solid #555; }
+        #counter { font-size: 0.8rem; color: #666; }
 
         #keno { 
             display: flex;
@@ -118,7 +121,7 @@
     <div id="message"></div>
     <div id="keno"></div>
 
-    <div id="footer-container">
+    <div id="footer">
         <div id="shane-text">SHANE IS GHEY</div>
         <a href="https://Tallpinelounge.com" id="logo"><img src="chip2.png" alt="Tall Pine Logo"></a>
         <div id="counter">Hits: <span id="hitCount">0</span></div>
@@ -176,3 +179,65 @@
             let target = new Date();
             target.setDate(now.getDate() + (4 - now.getDay() + 7) % 7);
             target.setHours(19, 30, 0, 0);
+
+            const twoHoursAfter = new Date(target.getTime() + (2 * 60 * 60 * 1000));
+            if (now > twoHoursAfter) target.setDate(target.getDate() + 7);
+
+            const diff = target - now;
+            const secondsTotal = Math.floor(diff / 1000);
+            
+            const body = document.body;
+            const timerDiv = document.getElementById('timer');
+            const msgDiv = document.getElementById('message');
+            const kenoDiv = document.getElementById('keno');
+
+            if ((now >= target && now <= twoHoursAfter) || testMode) {
+                timerDiv.style.display = "none";
+                msgDiv.innerHTML = "DRINKY TIME";
+                
+                if (kenoDiv.innerHTML === "") {
+                    const nums = getKenoNumbers(target);
+                    kenoDiv.innerHTML = nums.map(n => `<div class="ball">${n}</div>`).join('');
+                }
+                
+                body.style.backgroundColor = `hsl(${Math.random() * 360}, 70%, 20%)`;
+                
+                if (!audio.muted && audio.paused) {
+                    audio.play().catch(e => {});
+                }
+
+                if (!confettiInterval) {
+                    confettiInterval = setInterval(() => {
+                        confetti({ particleCount: 100, spread: 70, origin: { y: 0.6 } });
+                    }, 2000);
+                }
+                return;
+            }
+
+            clearInterval(confettiInterval);
+            confettiInterval = null;
+            timerDiv.style.display = "block";
+            msgDiv.innerHTML = "";
+            kenoDiv.innerHTML = "";
+            body.style.backgroundColor = "#000";
+            if (!audio.paused && !testMode) audio.pause();
+
+            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+            const mins = Math.floor((diff / 1000 / 60) % 60);
+            const secs = Math.floor((diff / 1000) % 60);
+            timerDiv.innerHTML = `${days}d ${hours}h ${mins}m ${secs}s`;
+
+            if (secondsTotal <= 600 && secondsTotal > 0) {
+                body.classList.add('warning-mode');
+                msgDiv.innerHTML = "SOON.....";
+            } else if (secondsTotal <= 7200 && secondsTotal > 600) {
+                msgDiv.innerHTML = "SOON.....";
+            }
+        }
+
+        setInterval(update, 1000);
+        update();
+    </script>
+</body>
+</html>
