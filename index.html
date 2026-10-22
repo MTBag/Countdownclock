@@ -199,8 +199,12 @@
 
         audio.muted = true;
 
+        // ---- Vern's hand-picked numbers for a specific Thursday (key uses 0-based month). ----
+        const KENO_OVERRIDES = { "2026-9-22": [7, 9, 13, 23, 33, 34] };
+
         function getKenoNumbers(seedDate) {
             const dateString = seedDate.getFullYear() + "-" + seedDate.getMonth() + "-" + seedDate.getDate();
+            if (KENO_OVERRIDES[dateString]) return [...KENO_OVERRIDES[dateString]];
             let seed = 0;
             for (let i = 0; i < dateString.length; i++) {
                 seed += dateString.charCodeAt(i);
