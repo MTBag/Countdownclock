@@ -10,12 +10,12 @@
             color: #fff; 
             display: flex; 
             flex-direction: column; 
-            justify-content: center; 
+            justify-content: flex-start; 
             align-items: center; 
-            height: 100vh; /* Changed back to fixed height to ensure centering */
+            min-height: 100vh;
             font-family: 'Arial Black', sans-serif; 
             margin: 0;
-            overflow: hidden;
+            overflow-x: hidden;
             transition: background-color 0.2s;
             text-align: center;
         }
@@ -74,6 +74,12 @@
         }
         #footer > * { pointer-events: auto; }
         #counter { font-size: 0.8rem; color: #666; }
+        #blackout { width: 92vw; max-width: 900px; margin: 40px auto 120px; font-family: Arial, sans-serif; }
+        #blackout h2 { font-family: 'Arial Black', sans-serif; font-size: 1.6rem; margin-bottom: 16px; }
+        #blackout table { width: 100%; border-collapse: collapse; font-size: 0.95rem; text-align: left; }
+        #blackout th, #blackout td { border: 1px solid #333; padding: 8px 10px; }
+        #blackout th { background: #222; color: #ffcc66; }
+        #blackout tr:nth-child(even) td { background: #111; }
         #built-by { font-size: 0.85rem; color: #888; font-family: Arial, sans-serif; margin-top: 4px; }
         #built-by a { color: #aaa; text-decoration: none; }
         #built-by a:hover { color: #fff; text-decoration: underline; }
@@ -101,7 +107,7 @@
             box-shadow: 4px 4px 15px rgba(0,0,0,0.6);
             border: 2px solid #666;
             position: relative;
-            overflow: hidden;
+            overflow-x: hidden;
             animation: vibrate 0.2s infinite;
         }
 
@@ -154,6 +160,47 @@
     <div id="footer">
         <div id="counter">Hits: <span id="hitCount">0</span></div>
         <div id="built-by">Built by Vern · <a href="tel:+14064206839">(406) 420-6839</a> · <a href="mailto:BigforkVern@gmail.com">BigforkVern@gmail.com</a></div>
+    </div>
+
+    <div id="blackout">
+    <h2>Football Blackout Board</h2>
+    <table>
+    <thead><tr><th>Rank</th><th>Team</th><th>GP</th><th>Digits lit</th><th>Still needs</th><th>Odds</th></tr></thead>
+    <tbody>
+    <tr><td>1</td><td>San Francisco 49ers</td><td>7</td><td>0, 2, 3, 4, 5, 6, 7</td><td>1, 8, 9</td><td>6.0%</td></tr>
+    <tr><td>2-7</td><td>Arizona Cardinals</td><td>7</td><td>0, 1, 4, 6, 7, 8</td><td>2, 3, 5, 9</td><td>4.0%</td></tr>
+    <tr><td>2-7</td><td>Carolina Panthers</td><td>6</td><td>2, 3, 4, 5, 7, 8</td><td>0, 1, 6, 9</td><td>14.8%</td></tr>
+    <tr><td>2-7</td><td>Dallas Cowboys</td><td>6</td><td>0, 1, 4, 6, 7, 8</td><td>2, 3, 5, 9</td><td>5.5%</td></tr>
+    <tr><td>2-7</td><td>Jacksonville Jaguars</td><td>6</td><td>1, 2, 3, 4, 5, 9</td><td>0, 6, 7, 8</td><td>13.9%</td></tr>
+    <tr><td>2-7</td><td>New York Jets</td><td>7</td><td>2, 3, 4, 5, 7, 9</td><td>0, 1, 6, 8</td><td>7.8%</td></tr>
+    <tr><td>2-7</td><td>Tennessee Titans</td><td>7</td><td>0, 3, 4, 6, 7, 8</td><td>1, 2, 5, 9</td><td>2.9%</td></tr>
+    <tr><td>8-19</td><td>Baltimore Ravens</td><td>7</td><td>0, 1, 3, 4, 7</td><td>2, 5, 6, 8, 9</td><td>0.7%</td></tr>
+    <tr><td>8-19</td><td>Buffalo Bills</td><td>6</td><td>1, 3, 4, 6, 7</td><td>0, 2, 5, 8, 9</td><td>1.4%</td></tr>
+    <tr><td>8-19</td><td>Chicago Bears</td><td>7</td><td>0, 1, 3, 7, 9</td><td>2, 4, 5, 6, 8</td><td>1.5%</td></tr>
+    <tr><td>8-19</td><td>Cincinnati Bengals</td><td>6</td><td>0, 1, 3, 5, 7</td><td>2, 4, 6, 8, 9</td><td>2.1%</td></tr>
+    <tr><td>8-19</td><td>Cleveland Browns</td><td>7</td><td>0, 1, 2, 3, 7</td><td>4, 5, 6, 8, 9</td><td>1.6%</td></tr>
+    <tr><td>8-19</td><td>Green Bay Packers</td><td>6</td><td>0, 1, 2, 4, 7</td><td>3, 5, 6, 8, 9</td><td>2.5%</td></tr>
+    <tr><td>8-19</td><td>Houston Texans</td><td>7</td><td>0, 1, 4, 6, 7</td><td>2, 3, 5, 8, 9</td><td>0.8%</td></tr>
+    <tr><td>8-19</td><td>Kansas City Chiefs</td><td>6</td><td>0, 1, 2, 3, 4</td><td>5, 6, 7, 8, 9</td><td>2.5%</td></tr>
+    <tr><td>8-19</td><td>Los Angeles Rams</td><td>7</td><td>4, 5, 6, 7, 8</td><td>0, 1, 2, 3, 9</td><td>4.2%</td></tr>
+    <tr><td>8-19</td><td>New England Patriots</td><td>7</td><td>0, 4, 5, 6, 9</td><td>1, 2, 3, 7, 8</td><td>2.7%</td></tr>
+    <tr><td>8-19</td><td>Seattle Seahawks</td><td>7</td><td>0, 1, 3, 4, 9</td><td>2, 5, 6, 7, 8</td><td>1.6%</td></tr>
+    <tr><td>8-19</td><td>Tampa Bay Buccaneers</td><td>7</td><td>3, 4, 6, 7, 9</td><td>0, 1, 2, 5, 8</td><td>1.4%</td></tr>
+    <tr><td>20-31</td><td>Denver Broncos</td><td>7</td><td>0, 3, 4, 7</td><td>1, 2, 5, 6, 8, 9</td><td>0.3%</td></tr>
+    <tr><td>20-31</td><td>Detroit Lions</td><td>6</td><td>0, 1, 5, 6</td><td>2, 3, 4, 7, 8, 9</td><td>1.8%</td></tr>
+    <tr><td>20-31</td><td>Indianapolis Colts</td><td>7</td><td>0, 2, 3, 9</td><td>1, 4, 5, 6, 7, 8</td><td>1.7%</td></tr>
+    <tr><td>20-31</td><td>Los Angeles Chargers</td><td>6</td><td>3, 4, 6, 7</td><td>0, 1, 2, 5, 8, 9</td><td>0.7%</td></tr>
+    <tr><td>20-31</td><td>Las Vegas Raiders</td><td>7</td><td>0, 1, 6, 7</td><td>2, 3, 4, 5, 8, 9</td><td>0.5%</td></tr>
+    <tr><td>20-31</td><td>Miami Dolphins</td><td>6</td><td>0, 3, 4, 8</td><td>1, 2, 5, 6, 7, 9</td><td>1.7%</td></tr>
+    <tr><td>20-31</td><td>Minnesota Vikings</td><td>6</td><td>3, 5, 6, 9</td><td>0, 1, 2, 4, 7, 8</td><td>3.0%</td></tr>
+    <tr><td>20-31</td><td>New Orleans Saints</td><td>7</td><td>0, 3, 4, 5</td><td>1, 2, 6, 7, 8, 9</td><td>0.6%</td></tr>
+    <tr><td>20-31</td><td>New York Giants</td><td>7</td><td>2, 6, 7, 8</td><td>0, 1, 3, 4, 5, 9</td><td>3.1%</td></tr>
+    <tr><td>20-31</td><td>Philadelphia Eagles</td><td>7</td><td>0, 1, 4, 7</td><td>2, 3, 5, 6, 8, 9</td><td>0.4%</td></tr>
+    <tr><td>20-31</td><td>Pittsburgh Steelers</td><td>7</td><td>0, 3, 4, 6</td><td>1, 2, 5, 7, 8, 9</td><td>0.4%</td></tr>
+    <tr><td>20-31</td><td>Washington Commanders</td><td>6</td><td>0, 2, 3, 7</td><td>1, 4, 5, 6, 8, 9</td><td>1.2%</td></tr>
+    <tr><td>32</td><td>Atlanta Falcons</td><td>7</td><td>3, 5, 9</td><td>0, 1, 2, 4, 6, 7, 8</td><td>0.9%</td></tr>
+    </tbody>
+    </table>
     </div>
 
     <script>
