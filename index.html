@@ -78,7 +78,7 @@
         #blackout h2 { font-family: 'Arial Black', sans-serif; font-size: 1.6rem; margin-bottom: 16px; }
         #blackout table { width: 100%; border-collapse: collapse; font-size: 0.95rem; text-align: left; }
         #blackout th, #blackout td { border: 1px solid #333; padding: 8px 10px; }
-        #blackout th { background: #222; color: #ffcc66; }
+        #blackout th { background: #222; color: #ffcc66; cursor: pointer; }
         #blackout tr:nth-child(even) td { background: #111; }
         #built-by { font-size: 0.85rem; color: #888; font-family: Arial, sans-serif; margin-top: 4px; }
         #built-by a { color: #aaa; text-decoration: none; }
@@ -165,43 +165,73 @@
     <div id="blackout">
     <h2>Football Blackout Board</h2>
     <table>
-    <thead><tr><th>Rank</th><th>Team</th><th>Owner</th><th>GP</th><th>Digits lit</th><th>Still needs</th><th>Odds</th></tr></thead>
+    <thead><tr><th>Team Name</th><th>Owner</th><th># Hit</th><th>Odds of Winning</th><th>GP</th><th>Digits lit</th><th>Still needs</th></tr></thead>
     <tbody>
-    <tr><td>2-7</td><td>Carolina Panthers</td><td>Wanda Dockstader</td><td>6</td><td>2, 3, 4, 5, 7, 8</td><td>0, 1, 6, 9</td><td>14.8%</td></tr>
-    <tr><td>2-7</td><td>Jacksonville Jaguars</td><td>Dillon Webb</td><td>6</td><td>1, 2, 3, 4, 5, 9</td><td>0, 6, 7, 8</td><td>13.9%</td></tr>
-    <tr><td>2-7</td><td>New York Jets</td><td>Toni Sherry</td><td>7</td><td>2, 3, 4, 5, 7, 9</td><td>0, 1, 6, 8</td><td>7.8%</td></tr>
-    <tr><td>1</td><td>San Francisco 49ers</td><td>Rodney Hitt</td><td>7</td><td>0, 2, 3, 4, 5, 6, 7</td><td>1, 8, 9</td><td>6.0%</td></tr>
-    <tr><td>2-7</td><td>Dallas Cowboys</td><td>Stacy Webb</td><td>6</td><td>0, 1, 4, 6, 7, 8</td><td>2, 3, 5, 9</td><td>5.5%</td></tr>
-    <tr><td>8-19</td><td>Los Angeles Rams</td><td>Owen Roberts</td><td>7</td><td>4, 5, 6, 7, 8</td><td>0, 1, 2, 3, 9</td><td>4.2%</td></tr>
-    <tr><td>2-7</td><td>Arizona Cardinals</td><td>Ken Lowell</td><td>7</td><td>0, 1, 4, 6, 7, 8</td><td>2, 3, 5, 9</td><td>4.0%</td></tr>
-    <tr><td>20-31</td><td>New York Giants</td><td>N8</td><td>7</td><td>2, 6, 7, 8</td><td>0, 1, 3, 4, 5, 9</td><td>3.1%</td></tr>
-    <tr><td>20-31</td><td>Minnesota Vikings</td><td>Kris Frost</td><td>6</td><td>3, 5, 6, 9</td><td>0, 1, 2, 4, 7, 8</td><td>3.0%</td></tr>
-    <tr><td>2-7</td><td>Tennessee Titans</td><td>Anthony Tanzi</td><td>7</td><td>0, 3, 4, 6, 7, 8</td><td>1, 2, 5, 9</td><td>2.9%</td></tr>
-    <tr><td>8-19</td><td>New England Patriots</td><td>Dani Carlson</td><td>7</td><td>0, 4, 5, 6, 9</td><td>1, 2, 3, 7, 8</td><td>2.7%</td></tr>
-    <tr><td>8-19</td><td>Kansas City Chiefs</td><td>Cindy McDonald</td><td>6</td><td>0, 1, 2, 3, 4</td><td>5, 6, 7, 8, 9</td><td>2.5%</td></tr>
-    <tr><td>8-19</td><td>Green Bay Packers</td><td>Joseph Pepos</td><td>6</td><td>0, 1, 2, 4, 7</td><td>3, 5, 6, 8, 9</td><td>2.5%</td></tr>
-    <tr><td>8-19</td><td>Cincinnati Bengals</td><td>Caydee Reynolds</td><td>6</td><td>0, 1, 3, 5, 7</td><td>2, 4, 6, 8, 9</td><td>2.1%</td></tr>
-    <tr><td>20-31</td><td>Detroit Lions</td><td>Ryan Hales</td><td>6</td><td>0, 1, 5, 6</td><td>2, 3, 4, 7, 8, 9</td><td>1.8%</td></tr>
-    <tr><td>20-31</td><td>Miami Dolphins</td><td>Shane McDonough</td><td>6</td><td>0, 3, 4, 8</td><td>1, 2, 5, 6, 7, 9</td><td>1.7%</td></tr>
-    <tr><td>20-31</td><td>Indianapolis Colts</td><td>Annette Serres</td><td>7</td><td>0, 2, 3, 9</td><td>1, 4, 5, 6, 7, 8</td><td>1.7%</td></tr>
-    <tr><td>8-19</td><td>Cleveland Browns</td><td>Josh Johnson</td><td>7</td><td>0, 1, 2, 3, 7</td><td>4, 5, 6, 8, 9</td><td>1.6%</td></tr>
-    <tr><td>8-19</td><td>Seattle Seahawks</td><td>Greg Sorenson</td><td>7</td><td>0, 1, 3, 4, 9</td><td>2, 5, 6, 7, 8</td><td>1.6%</td></tr>
-    <tr><td>8-19</td><td>Chicago Bears</td><td>Scott Pepos</td><td>7</td><td>0, 1, 3, 7, 9</td><td>2, 4, 5, 6, 8</td><td>1.5%</td></tr>
-    <tr><td>8-19</td><td>Tampa Bay Buccaneers</td><td>Aaron Holliday</td><td>7</td><td>3, 4, 6, 7, 9</td><td>0, 1, 2, 5, 8</td><td>1.4%</td></tr>
-    <tr><td>8-19</td><td>Buffalo Bills</td><td>Reno</td><td>6</td><td>1, 3, 4, 6, 7</td><td>0, 2, 5, 8, 9</td><td>1.4%</td></tr>
-    <tr><td>20-31</td><td>Washington Commanders</td><td>Rodney Hitt</td><td>6</td><td>0, 2, 3, 7</td><td>1, 4, 5, 6, 8, 9</td><td>1.2%</td></tr>
-    <tr><td>32</td><td>Atlanta Falcons</td><td>Linda Kidd</td><td>7</td><td>3, 5, 9</td><td>0, 1, 2, 4, 6, 7, 8</td><td>0.9%</td></tr>
-    <tr><td>8-19</td><td>Houston Texans</td><td>Joe Sommer</td><td>7</td><td>0, 1, 4, 6, 7</td><td>2, 3, 5, 8, 9</td><td>0.8%</td></tr>
-    <tr><td>8-19</td><td>Baltimore Ravens</td><td>Greg Stuart</td><td>7</td><td>0, 1, 3, 4, 7</td><td>2, 5, 6, 8, 9</td><td>0.7%</td></tr>
-    <tr><td>20-31</td><td>Los Angeles Chargers</td><td>Leann Buzell</td><td>6</td><td>3, 4, 6, 7</td><td>0, 1, 2, 5, 8, 9</td><td>0.7%</td></tr>
-    <tr><td>20-31</td><td>New Orleans Saints</td><td>Matty Lowell</td><td>7</td><td>0, 3, 4, 5</td><td>1, 2, 6, 7, 8, 9</td><td>0.6%</td></tr>
-    <tr><td>20-31</td><td>Las Vegas Raiders</td><td>Holly Foreman</td><td>7</td><td>0, 1, 6, 7</td><td>2, 3, 4, 5, 8, 9</td><td>0.5%</td></tr>
-    <tr><td>20-31</td><td>Philadelphia Eagles</td><td>Janet Pepos</td><td>7</td><td>0, 1, 4, 7</td><td>2, 3, 5, 6, 8, 9</td><td>0.4%</td></tr>
-    <tr><td>20-31</td><td>Pittsburgh Steelers</td><td>Renee Elsen</td><td>7</td><td>0, 3, 4, 6</td><td>1, 2, 5, 7, 8, 9</td><td>0.4%</td></tr>
-    <tr><td>20-31</td><td>Denver Broncos</td><td>Rod Serres</td><td>7</td><td>0, 3, 4, 7</td><td>1, 2, 5, 6, 8, 9</td><td>0.3%</td></tr>
+    <tr><td>Carolina Panthers</td><td>Wanda D.</td><td>6</td><td>14.8%</td><td>6</td><td>2, 3, 4, 5, 7, 8</td><td>0, 1, 6, 9</td></tr>
+    <tr><td>Jacksonville Jaguars</td><td>Dillon W.</td><td>6</td><td>13.9%</td><td>6</td><td>1, 2, 3, 4, 5, 9</td><td>0, 6, 7, 8</td></tr>
+    <tr><td>New York Jets</td><td>Toni S.</td><td>6</td><td>7.8%</td><td>7</td><td>2, 3, 4, 5, 7, 9</td><td>0, 1, 6, 8</td></tr>
+    <tr><td>San Francisco 49ers</td><td>Rodney H.</td><td>7</td><td>6.0%</td><td>7</td><td>0, 2, 3, 4, 5, 6, 7</td><td>1, 8, 9</td></tr>
+    <tr><td>Dallas Cowboys</td><td>Stacy W.</td><td>6</td><td>5.5%</td><td>6</td><td>0, 1, 4, 6, 7, 8</td><td>2, 3, 5, 9</td></tr>
+    <tr><td>Los Angeles Rams</td><td>Owen R.</td><td>5</td><td>4.2%</td><td>7</td><td>4, 5, 6, 7, 8</td><td>0, 1, 2, 3, 9</td></tr>
+    <tr><td>Arizona Cardinals</td><td>Ken L.</td><td>6</td><td>4.0%</td><td>7</td><td>0, 1, 4, 6, 7, 8</td><td>2, 3, 5, 9</td></tr>
+    <tr><td>New York Giants</td><td>N8</td><td>4</td><td>3.1%</td><td>7</td><td>2, 6, 7, 8</td><td>0, 1, 3, 4, 5, 9</td></tr>
+    <tr><td>Minnesota Vikings</td><td>Kris F.</td><td>4</td><td>3.0%</td><td>6</td><td>3, 5, 6, 9</td><td>0, 1, 2, 4, 7, 8</td></tr>
+    <tr><td>Tennessee Titans</td><td>Anthony T.</td><td>6</td><td>2.9%</td><td>7</td><td>0, 3, 4, 6, 7, 8</td><td>1, 2, 5, 9</td></tr>
+    <tr><td>New England Patriots</td><td>Dani C.</td><td>5</td><td>2.7%</td><td>7</td><td>0, 4, 5, 6, 9</td><td>1, 2, 3, 7, 8</td></tr>
+    <tr><td>Kansas City Chiefs</td><td>Cindy M.</td><td>5</td><td>2.5%</td><td>6</td><td>0, 1, 2, 3, 4</td><td>5, 6, 7, 8, 9</td></tr>
+    <tr><td>Green Bay Packers</td><td>Joseph P.</td><td>5</td><td>2.5%</td><td>6</td><td>0, 1, 2, 4, 7</td><td>3, 5, 6, 8, 9</td></tr>
+    <tr><td>Cincinnati Bengals</td><td>Caydee R.</td><td>5</td><td>2.1%</td><td>6</td><td>0, 1, 3, 5, 7</td><td>2, 4, 6, 8, 9</td></tr>
+    <tr><td>Detroit Lions</td><td>Ryan H.</td><td>4</td><td>1.8%</td><td>6</td><td>0, 1, 5, 6</td><td>2, 3, 4, 7, 8, 9</td></tr>
+    <tr><td>Miami Dolphins</td><td>Shane M.</td><td>4</td><td>1.7%</td><td>6</td><td>0, 3, 4, 8</td><td>1, 2, 5, 6, 7, 9</td></tr>
+    <tr><td>Indianapolis Colts</td><td>Annette S.</td><td>4</td><td>1.7%</td><td>7</td><td>0, 2, 3, 9</td><td>1, 4, 5, 6, 7, 8</td></tr>
+    <tr><td>Cleveland Browns</td><td>Josh J.</td><td>5</td><td>1.6%</td><td>7</td><td>0, 1, 2, 3, 7</td><td>4, 5, 6, 8, 9</td></tr>
+    <tr><td>Seattle Seahawks</td><td>Greg S.</td><td>5</td><td>1.6%</td><td>7</td><td>0, 1, 3, 4, 9</td><td>2, 5, 6, 7, 8</td></tr>
+    <tr><td>Chicago Bears</td><td>Scott P.</td><td>5</td><td>1.5%</td><td>7</td><td>0, 1, 3, 7, 9</td><td>2, 4, 5, 6, 8</td></tr>
+    <tr><td>Tampa Bay Buccaneers</td><td>Aaron H.</td><td>5</td><td>1.4%</td><td>7</td><td>3, 4, 6, 7, 9</td><td>0, 1, 2, 5, 8</td></tr>
+    <tr><td>Buffalo Bills</td><td>Reno</td><td>5</td><td>1.4%</td><td>6</td><td>1, 3, 4, 6, 7</td><td>0, 2, 5, 8, 9</td></tr>
+    <tr><td>Washington Commanders</td><td>Rodney H.</td><td>4</td><td>1.2%</td><td>6</td><td>0, 2, 3, 7</td><td>1, 4, 5, 6, 8, 9</td></tr>
+    <tr><td>Atlanta Falcons</td><td>Linda K.</td><td>3</td><td>0.9%</td><td>7</td><td>3, 5, 9</td><td>0, 1, 2, 4, 6, 7, 8</td></tr>
+    <tr><td>Houston Texans</td><td>Joe S.</td><td>5</td><td>0.8%</td><td>7</td><td>0, 1, 4, 6, 7</td><td>2, 3, 5, 8, 9</td></tr>
+    <tr><td>Baltimore Ravens</td><td>Greg S.</td><td>5</td><td>0.7%</td><td>7</td><td>0, 1, 3, 4, 7</td><td>2, 5, 6, 8, 9</td></tr>
+    <tr><td>Los Angeles Chargers</td><td>Leann B.</td><td>4</td><td>0.7%</td><td>6</td><td>3, 4, 6, 7</td><td>0, 1, 2, 5, 8, 9</td></tr>
+    <tr><td>New Orleans Saints</td><td>Matty L.</td><td>4</td><td>0.6%</td><td>7</td><td>0, 3, 4, 5</td><td>1, 2, 6, 7, 8, 9</td></tr>
+    <tr><td>Las Vegas Raiders</td><td>Holly F.</td><td>4</td><td>0.5%</td><td>7</td><td>0, 1, 6, 7</td><td>2, 3, 4, 5, 8, 9</td></tr>
+    <tr><td>Philadelphia Eagles</td><td>Janet P.</td><td>4</td><td>0.4%</td><td>7</td><td>0, 1, 4, 7</td><td>2, 3, 5, 6, 8, 9</td></tr>
+    <tr><td>Pittsburgh Steelers</td><td>Renee E.</td><td>4</td><td>0.4%</td><td>7</td><td>0, 3, 4, 6</td><td>1, 2, 5, 7, 8, 9</td></tr>
+    <tr><td>Denver Broncos</td><td>Rod S.</td><td>4</td><td>0.3%</td><td>7</td><td>0, 3, 4, 7</td><td>1, 2, 5, 6, 8, 9</td></tr>
     </tbody>
     </table>
     </div>
+
+    <script>
+        (function() {
+            var table = document.querySelector('#blackout table');
+            if (!table) return;
+            var tbody = table.querySelector('tbody');
+            var dir = {};
+            table.querySelectorAll('th').forEach(function(th, idx) {
+                th.addEventListener('click', function() {
+                    var ascending = !(dir[idx] === 'asc');
+                    dir[idx] = ascending ? 'asc' : 'desc';
+                    var rows = Array.prototype.slice.call(tbody.querySelectorAll('tr'));
+                    rows.sort(function(a, b) {
+                        var av = a.children[idx].textContent.trim();
+                        var bv = b.children[idx].textContent.trim();
+                        var an = parseFloat(av.replace('%',''));
+                        var bn = parseFloat(bv.replace('%',''));
+                        var cmp;
+                        if (idx === 2 || idx === 3 || idx === 4) {
+                            cmp = an - bn;
+                        } else {
+                            cmp = av.localeCompare(bv);
+                        }
+                        return ascending ? cmp : -cmp;
+                    });
+                    rows.forEach(function(row) { tbody.appendChild(row); });
+                });
+            });
+        })();
+    </script>
 
     <script>
         // ---- Weekly Wednesday Asian special. Vern updates this after the Wednesday check. ----
